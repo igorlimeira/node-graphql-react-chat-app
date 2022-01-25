@@ -67,7 +67,7 @@ export default function Users() {
             <p className="font-weight-light">
               {user.latestMessage
                 ? user.latestMessage.content
-                : 'You are now connected!'}
+                : 'Você está conectado!'}
             </p>
           </div>
         </div>

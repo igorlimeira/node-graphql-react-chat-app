@@ -43,8 +43,8 @@ module.exports = {
 
       try {
         if (username.trim() === '')
-          errors.username = 'username must not be empty'
-        if (password === '') errors.password = 'password must not be empty'
+          errors.username = 'Nome de usuário deve ser informado!'
+        if (password === '') errors.password = 'Senha deve ser informada!'
 
         if (Object.keys(errors).length > 0) {
           throw new UserInputError('bad input', { errors })
@@ -55,15 +55,15 @@ module.exports = {
         })
 
         if (!user) {
-          errors.username = 'user not found'
-          throw new UserInputError('user not found', { errors })
+          errors.username = 'Usuário não encontrado!'
+          throw new UserInputError('Usuário não encontrado!', { errors })
         }
 
         const correctPassword = await bcrypt.compare(password, user.password)
 
         if (!correctPassword) {
-          errors.password = 'password is incorrect'
-          throw new UserInputError('password is incorrect', { errors })
+          errors.password = 'Senha incorreta!'
+          throw new UserInputError('Senha incorreta!', { errors })
         }
 
         const token = jwt.sign({ username }, process.env.JWT_SECRET, {
@@ -87,16 +87,16 @@ module.exports = {
 
       try {
         // Validate input data
-        if (email.trim() === '') errors.email = 'email must not be empty'
+        if (email.trim() === '') errors.email = 'Email deve ser informado!'
         if (username.trim() === '')
-          errors.username = 'username must not be empty'
+          errors.username = 'Nome de usuário deve ser informado!'
         if (password.trim() === '')
-          errors.password = 'password must not be empty'
+          errors.password = 'Senha deve ser informada!'
         if (confirmPassword.trim() === '')
-          errors.confirmPassword = 'repeat password must not be empty'
+          errors.confirmPassword = 'Confirmação de senha deve ser informada!'
 
         if (password !== confirmPassword)
-          errors.confirmPassword = 'passwords must match'
+          errors.confirmPassword = 'As senhas devem ser equivalentes!'
 
         // // Check if username / email exists
         // const userByUsername = await User.findOne({ where: { username } })
@@ -125,7 +125,7 @@ module.exports = {
         console.log(err)
         if (err.name === 'SequelizeUniqueConstraintError') {
           err.errors.forEach(
-            (e) => (errors[e.path] = `${e.path} is already taken`)
+            (e) => (errors[e.path] = `${e.path} já existe!`)
           )
         } else if (err.name === 'SequelizeValidationError') {
           err.errors.forEach((e) => (errors[e.path] = e.message))

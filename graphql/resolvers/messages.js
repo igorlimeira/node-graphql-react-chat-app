@@ -17,7 +17,7 @@ module.exports = {
         const otherUser = await User.findOne({
           where: { username: from },
         })
-        if (!otherUser) throw new UserInputError('User not found')
+        if (!otherUser) throw new UserInputError('Usuário não encontrado!')
 
         const usernames = [user.username, otherUser.username]
 
@@ -45,13 +45,13 @@ module.exports = {
         const recipient = await User.findOne({ where: { username: to } })
 
         if (!recipient) {
-          throw new UserInputError('User not found')
+          throw new UserInputError('Usuário não encontrado!')
         } else if (recipient.username === user.username) {
-          throw new UserInputError('You cant message yourself')
+          throw new UserInputError('Você não pode enviar mensagens para você mesmo!')
         }
 
         if (content.trim() === '') {
-          throw new UserInputError('Message is empty')
+          throw new UserInputError('Mensagem está vazia!')
         }
 
         const message = await Message.create({
@@ -84,7 +84,7 @@ module.exports = {
 
         // Get message
         const message = await Message.findOne({ where: { uuid } })
-        if (!message) throw new UserInputError('message not found')
+        if (!message) throw new UserInputError('Mensagem não encontrada!')
 
         if (message.from !== user.username && message.to !== user.username) {
           throw new ForbiddenError('Unauthorized')

@@ -99,7 +99,7 @@ export default function Messages() {
   } else if (messages.length === 0) {
     selectedChatMarkup = (
       <p className="info-text">
-        You are now connected! send your first message!
+        Você está conectado!! envie sua primeira mensagem!
       </p>
     )
   }
